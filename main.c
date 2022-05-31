@@ -7,7 +7,7 @@ void ex6(const matrix *m) {
     printf("\nExercise 6\n");
     // Print the sum of the elements for each matrix column
     for (int i = 0; i < m->cols; i++) {
-        int sum = matrix_col_sum(m, i);
+        int sum = matrix_sum_col(m, i);
         printf("Sum of column %d: %d\n", i, sum);
     }
     printf("\n");
@@ -55,7 +55,7 @@ void ex7(const matrix *m) {
     printf("k: %d, g: %d\n", k, g);
     // FIXME unclear: sum of each row or some of all selected rows?
     for (int i = k; i <= g; i++) {
-        int sum = matrix_row_sum(m, i);
+        int sum = matrix_sum_row(m, i);
         printf("Sum of row %d: %d\n", i, sum);
         int avg = sum / m->cols;
         printf("Average of row %d: %d\n", i, avg);

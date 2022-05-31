@@ -16,6 +16,23 @@ matrix *matrix_new(int rows, int cols) {
     return m;
 }
 
+matrix *matrix_new_ask_dimensions() {
+    printf("Enter the number of rows: ");
+    int rows = read_int();
+    printf("Enter the number of columns: ");
+    int cols = read_int();
+    return matrix_new(rows, cols);
+}
+
+void matrix_ask_data(matrix *m) {
+    for (int i = 0; i < m->rows; i++) {
+        for (int j = 0; j < m->cols; j++) {
+            printf("Enter the value of element (%d, %d): ", i, j);
+            m->data[i * m->cols + j] = read_int();
+        }
+    }
+}
+
 void matrix_fill(matrix *m, int value) {
     for (int i = 0; i < m->rows * m->cols; i++) {
         m->data[i] = value;
@@ -56,40 +73,11 @@ void matrix_print(matrix *m) {
     }
 }
 
-matrix *matrix_new_ask_dimensions() {
-    printf("Enter the number of rows: ");
-    int rows = read_int();
-    printf("Enter the number of columns: ");
-    int cols = read_int();
-    return matrix_new(rows, cols);
-}
-
-void matrix_ask_data(matrix *m) {
-    for (int i = 0; i < m->rows; i++) {
-        for (int j = 0; j < m->cols; j++) {
-            printf("Enter the value of element (%d, %d): ", i, j);
-            m->data[i * m->cols + j] = read_int();
-        }
-    }
-}
 
 
 
-int matrix_row_sum(const matrix *m, int row) {
-    int sum = 0;
-    for (int i = 0; i < m->cols; i++) {
-        sum += m->data[row * m->cols + i];
-    }
-    return sum;
-}
 
-int matrix_col_sum(const matrix *m, int col) {
-    int sum = 0;
-    for (int i = 0; i < m->rows; i++) {
-        sum += m->data[i * m->cols + col];
-    }
-    return sum;
-}
+
 
 int matrix_max_row(matrix *m, int row) {
     int max = m->data[row * m->cols];
@@ -193,11 +181,27 @@ int matrix_sum_antidiagonal(matrix *m) {
 }
 
 int matrix_avg_row(matrix *m, int row) {
-    return matrix_row_sum(m, row) / m->cols;
+    return matrix_sum_row(m, row) / m->cols;
 }
 
 int matrix_avg_col(const matrix *m, int col) {
-    return matrix_col_sum(m, col) / m->rows;
+    return matrix_sum_col(m, col) / m->rows;
+}
+
+int matrix_sum_col(const matrix *m, int col) {
+    int sum = 0;
+    for (int i = 0; i < m->rows; i++) {
+        sum += m->data[i * m->cols + col];
+    }
+    return sum;
+}
+
+int matrix_sum_row(const matrix *m, int row) {
+    int sum = 0;
+    for (int i = 0; i < m->cols; i++) {
+        sum += m->data[row * m->cols + i];
+    }
+    return sum;
 }
 
 void matrix_free(matrix *m) {

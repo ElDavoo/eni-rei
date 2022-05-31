@@ -32,8 +32,8 @@ void matrix_print_col(const matrix *m, int col);
 
 void matrix_free(matrix *m);
 int matrix_product_antidiagonal(matrix *m);
-int matrix_row_sum(const matrix *m, int row);
-int matrix_col_sum(const matrix *m, int col);
+int matrix_sum_row(const matrix *m, int row);
+int matrix_sum_col(const matrix *m, int col);
 int matrix_avg_row(matrix *m, int row);
 int matrix_avg_col(const matrix *m, int col);
 int matrix_product_diagonal(matrix *m);
