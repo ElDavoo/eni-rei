@@ -28,7 +28,13 @@ void matrix_fill_random(matrix *m) {
     }
 }
 
-
+matrix *matrix_copy(const matrix *m) {
+    matrix *n = matrix_new(m->rows, m->cols);
+    for (int i = 0; i < m->rows * m->cols; i++) {
+        n->data[i] = m->data[i];
+    }
+    return n;
+}
 
 void matrix_print_row(const matrix *m, int row) {
     for (int i = 0; i < m->cols; i++) {
@@ -263,7 +269,7 @@ int matrix_avg_row(matrix *m, int row) {
     return matrix_row_sum(m, row) / m->cols;
 }
 
-int matrix_avg_col(matrix *m, int col) {
+int matrix_avg_col(const matrix *m, int col) {
     return matrix_col_sum(m, col) / m->rows;
 }
 

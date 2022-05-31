@@ -51,7 +51,7 @@ void ex7(const matrix *m) {
     // So are they row/column indexes or element indexes?
     printf("\nExercise 7\n");
     int k = (rand() % (m->rows - 1)) + 1;
-    int g = (rand() % (m->rows - k - 1)) + k + 1;
+    int g = (rand() % (m->rows - k)) + k + 1;
     printf("k: %d, g: %d\n", k, g);
     // FIXME unclear: sum of each row or some of all selected rows?
     for (int i = k; i <= g; i++) {
@@ -76,6 +76,59 @@ void ex9(const matrix *m) {
     printf("\n");
 }
 
+// Ex 11: create a new matrix:
+// a) with the same values
+// b) increasing the value by the sum of the index
+// c) replacing the value with the index
+void ex11(const matrix *m) {
+    printf("\nExercise 11\n");
+    matrix *m2 = matrix_copy(m);
+    matrix_print(m2);
+    matrix_free(m2);
+    printf("\n");
+    matrix *m3 = matrix_copy(m);
+    for (int i = 0; i < m-> rows * m->cols; i++) {
+        m3->data[i] += i;
+    }
+    matrix_print(m3);
+    matrix_free(m3);
+    matrix *m4 = matrix_copy(m);
+    for (int i = 0; i < m->rows * m->cols; i++) {
+        m4->data[i] = i;
+    }
+    matrix_print(m4);
+    matrix_free(m4);
+    printf("\n");
+}
+
+void ex8(const matrix *m) {
+    printf("\nExercise 8\n");
+    // For each row, check if the elements are equal
+    for (int i = 0; i < m-> rows ; i += m->cols){
+        for (int j = 0; j < m->cols; j++) {
+            int value = m->data[i + j];
+            for (int k = j + 1; k < m->cols; k++) {
+                if (value != m->data[i + k]) {
+                    printf("Row %d is not equal\n", i / m->cols);
+                }
+            }
+        }
+    }
+}
+
+void ex10(const matrix *m) {
+    printf("\nExercise 10\n");
+    // Print the sum of the diagonal
+    int sumd = matrix_sum_diagonal(m);
+    printf("Sum of diagonal: %d\n", sumd);
+    // Print the sum of the anti-diagonal
+    int sumad = matrix_sum_antidiagonal(m);
+    printf("Sum of anti-diagonal: %d\n", sumad);
+    printf("\n");
+
+
+}
+
 int main() {
     srand(time(NULL));
 
@@ -86,9 +139,23 @@ int main() {
     ex6(m);
     ex7(m);
     ex9(m);
-
+    ex11(m);
 
     matrix_free(m);
 
+    m = matrix_new(rand() % 20 + 10,2);
+    matrix_fill_random(m);
+    matrix_print(m);
+
+    ex8(m);
+
+    matrix_free(m);
+
+    int randn = rand() % 8 + 1;
+    m = matrix_new(randn, randn);
+    matrix_fill_random(m);
+    matrix_print(m);
+    ex10(m);
+    matrix_free(m);
 
 }
