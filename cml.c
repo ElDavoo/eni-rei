@@ -73,23 +73,6 @@ void matrix_print(matrix *m) {
     }
 }
 
-
-
-
-
-
-
-int matrix_max_row(matrix *m, int row) {
-    int max = m->data[row * m->cols];
-    for (int i = 0; i < m->cols; i++) {
-        if (m->data[row * m->cols + i] > max) {
-            max = m->data[row * m->cols + i];
-        }
-    }
-    return max;
-}
-
-
 cell matrix_max_row_pos(const matrix *m, int row) {
     cell max = {m->data[row * m->cols], row * m->cols};
     for (int i = 0; i < m->cols; i++) {
@@ -134,34 +117,20 @@ cell matrix_min_col_pos(const matrix *m, int col) {
     return min;
 }
 
-int matrix_max_col(matrix *m, int col) {
-    int max = m->data[col];
+int matrix_sum_col(const matrix *m, int col) {
+    int sum = 0;
     for (int i = 0; i < m->rows; i++) {
-        if (m->data[i * m->cols + col] > max) {
-            max = m->data[i * m->cols + col];
-        }
+        sum += m->data[i * m->cols + col];
     }
-    return max;
+    return sum;
 }
 
-int matrix_min_row(matrix *m, int row) {
-    int min = m->data[row * m->cols];
+int matrix_sum_row(const matrix *m, int row) {
+    int sum = 0;
     for (int i = 0; i < m->cols; i++) {
-        if (m->data[row * m->cols + i] < min) {
-            min = m->data[row * m->cols + i];
-        }
+        sum += m->data[row * m->cols + i];
     }
-    return min;
-}
-
-int matrix_min_col(matrix *m, int col) {
-    int min = m->data[col];
-    for (int i = 0; i < m->rows; i++) {
-        if (m->data[i * m->cols + col] < min) {
-            min = m->data[i * m->cols + col];
-        }
-    }
-    return min;
+    return sum;
 }
 
 int matrix_sum_diagonal(matrix *m) {
@@ -180,6 +149,7 @@ int matrix_sum_antidiagonal(matrix *m) {
     return sum;
 }
 
+
 int matrix_avg_row(matrix *m, int row) {
     return matrix_sum_row(m, row) / m->cols;
 }
@@ -188,38 +158,33 @@ int matrix_avg_col(const matrix *m, int col) {
     return matrix_sum_col(m, col) / m->rows;
 }
 
-int matrix_sum_col(const matrix *m, int col) {
-    int sum = 0;
-    for (int i = 0; i < m->rows; i++) {
-        sum += m->data[i * m->cols + col];
-    }
-    return sum;
-}
-
-int matrix_sum_row(const matrix *m, int row) {
-    int sum = 0;
-    for (int i = 0; i < m->cols; i++) {
-        sum += m->data[row * m->cols + i];
-    }
-    return sum;
-}
-
 void matrix_free(matrix *m) {
     free(m->data);
     free(m);
 }
 
+/**
+ * Reads a line of maximum 100 characters from stdin.
+ * @return The line read.
+ */
 char *read_line() {
     char *line = malloc(sizeof(char) * 100);
     fgets(line, 100, stdin);
     return line;
 }
 
-// Read int using strtol
+/**
+ * Reads an integer from stdin.
+ * @return The integer read.
+ */
 int read_int() {
+    // Get the line.
     char *input = read_line();
+    // Convert the line to a long.
     long result = strtol(input, NULL, 10);
+    // Free the line.
     free(input);
+    // Cast the long to int, and return it.
     assert(result <= INT_MAX);
     return (int)result;
 }
