@@ -92,6 +92,7 @@ void ex11(const matrix *m) {
     }
     matrix_print(m3);
     matrix_free(m3);
+    printf("\n");
     matrix *m4 = matrix_copy(m);
     for (int i = 0; i < m->rows * m->cols; i++) {
         m4->data[i] = i;
@@ -114,6 +115,7 @@ void ex8(const matrix *m) {
             }
         }
     }
+    printf("\n");
 }
 
 void ex10(const matrix *m) {
