@@ -28,6 +28,22 @@ void matrix_fill_random(matrix *m) {
     }
 }
 
+
+
+void matrix_print_row(const matrix *m, int row) {
+    for (int i = 0; i < m->cols; i++) {
+        printf("%d\t", m->data[row * m->cols + i]);
+    }
+    printf("\n");
+}
+
+void matrix_print_col(const matrix *m, int col) {
+    for (int i = 0; i < m->rows; i++) {
+        printf("%d\t", m->data[i * m->cols + col]);
+    }
+    printf("\n");
+}
+
 matrix *matrix_new_ask_dimensions() {
     printf("Enter the number of rows: ");
     int rows = read_int();
@@ -54,7 +70,7 @@ void matrix_print(matrix *m) {
     }
 }
 
-int matrix_row_sum(matrix *m, int row) {
+int matrix_row_sum(const matrix *m, int row) {
     int sum = 0;
     for (int i = 0; i < m->cols; i++) {
         sum += m->data[row * m->cols + i];
@@ -79,6 +95,7 @@ int matrix_max_row(matrix *m, int row) {
     }
     return max;
 }
+
 
 cell matrix_max_row_pos(const matrix *m, int row) {
     cell max = {m->data[row * m->cols], row * m->cols};

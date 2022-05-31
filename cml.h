@@ -27,9 +27,12 @@ void matrix_fill(matrix *m, int value);
 void matrix_fill_random(matrix *m);
 void matrix_ask_data(matrix *m);
 void matrix_print(matrix *m);
+void matrix_print_row(const matrix *m, int row);
+void matrix_print_col(const matrix *m, int col);
+
 void matrix_free(matrix *m);
 int matrix_product_antidiagonal(matrix *m);
-int matrix_row_sum(matrix *m, int row);
+int matrix_row_sum(const matrix *m, int row);
 int matrix_col_sum(const matrix *m, int col);
 int matrix_avg_row(matrix *m, int row);
 int matrix_avg_col(matrix *m, int col);
