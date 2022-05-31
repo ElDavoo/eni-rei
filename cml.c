@@ -13,7 +13,7 @@
  * @param cols Number of columns.
  * @return  A new matrix.
  */
-matrix *matrix_new(int rows, int cols) {
+matrix *matrix_new(const int rows, const int cols) {
     // Allocate a new matrix struct
     matrix *m = malloc(sizeof(matrix));
     // Set the dimensions
@@ -41,7 +41,7 @@ matrix *matrix_new_ask_dimensions() {
  * Asks the user for the data of the matrix.
  * @param m The matrix.
  */
-void matrix_ask_data(matrix *m) {
+void matrix_ask_data(const matrix *m) {
     for (int i = 0; i < m->rows; i++) {
         for (int j = 0; j < m->cols; j++) {
             printf("Enter the value of element (%d, %d): ", i, j);
@@ -55,7 +55,7 @@ void matrix_ask_data(matrix *m) {
  * @param m The matrix.
  * @param value The value to fill the matrix with.
  */
-void matrix_fill(matrix *m, int value) {
+void matrix_fill(const matrix *m, const int value) {
     for (int i = 0; i < m->rows * m->cols; i++) {
         m->data[i] = value;
     }
@@ -65,7 +65,7 @@ void matrix_fill(matrix *m, int value) {
  * Fills the matrix with random values.
  * @param m The matrix.
  */
-void matrix_fill_random(matrix *m) {
+void matrix_fill_random(const matrix *m) {
     for (int i = 0; i < m->rows * m->cols; i++) {
         m->data[i] = rand() % 100;
     }
@@ -89,7 +89,7 @@ matrix *matrix_copy(const matrix *m) {
  * @param m The matrix.
  * @param row The index of the row to print.
  */
-void matrix_print_row(const matrix *m, int row) {
+void matrix_print_row(const matrix *m, const int row) {
     for (int i = 0; i < m->cols; i++) {
         printf("%d\t", m->data[row * m->cols + i]);
     }
@@ -101,7 +101,7 @@ void matrix_print_row(const matrix *m, int row) {
  * @param m The matrix.
  * @param col The index of the column to print.
  */
-void matrix_print_col(const matrix *m, int col) {
+void matrix_print_col(const matrix *m, const int col) {
     for (int i = 0; i < m->rows; i++) {
         printf("%d\n", m->data[i * m->cols + col]);
     }
@@ -112,7 +112,7 @@ void matrix_print_col(const matrix *m, int col) {
  * Prints the matrix.
  * @param m The matrix.
  */
-void matrix_print(matrix *m) {
+void matrix_print(const matrix *m) {
     for (int i = 0; i < m->rows; i++) {
         matrix_print_row(m, i);
     }
@@ -124,7 +124,7 @@ void matrix_print(matrix *m) {
  * @param row The index of the row.
  * @return The index and the value of the maximum of the row.
  */
-cell matrix_max_row_pos(const matrix *m, int row) {
+cell matrix_max_row_pos(const matrix *m, const int row) {
     cell max = {m->data[row * m->cols], row * m->cols};
     for (int i = 0; i < m->cols; i++) {
         if (m->data[row * m->cols + i] > max.value) {
@@ -141,7 +141,7 @@ cell matrix_max_row_pos(const matrix *m, int row) {
  * @param row The index of the row.
  * @return The index and the value of the minimum of the row.
  */
-cell matrix_min_row_pos(const matrix *m, int row) {
+cell matrix_min_row_pos(const matrix *m, const int row) {
     cell min = {m->data[row * m->cols], row * m->cols};
     for (int i = 0; i < m->cols; i++) {
         if (m->data[row * m->cols + i] < min.value) {
@@ -158,7 +158,7 @@ cell matrix_min_row_pos(const matrix *m, int row) {
  * @param col The index of the column.
  * @return The index and the value of the maximum of the column.
  */
-cell matrix_max_col_pos(const matrix *m, int col) {
+cell matrix_max_col_pos(const matrix *m, const int col) {
     cell max = {m->data[col], col};
     for (int i = 0; i < m->rows; i++) {
         if (m->data[i * m->cols + col] > max.value) {
@@ -175,7 +175,7 @@ cell matrix_max_col_pos(const matrix *m, int col) {
  * @param col The index of the column.
  * @return The index and the value of the minimum of the column.
  */
-cell matrix_min_col_pos(const matrix *m, int col) {
+cell matrix_min_col_pos(const matrix *m, const int col) {
     cell min = {m->data[col], col};
     for (int i = 0; i < m->rows; i++) {
         if (m->data[i * m->cols + col] < min.value) {
@@ -192,7 +192,7 @@ cell matrix_min_col_pos(const matrix *m, int col) {
  * @param col The column index.
  * @return The sum of all elements of the column.
  */
-int matrix_sum_col(const matrix *m, int col) {
+int matrix_sum_col(const matrix *m, const int col) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
         sum += m->data[i * m->cols + col];
@@ -206,7 +206,7 @@ int matrix_sum_col(const matrix *m, int col) {
  * @param row The row index.
  * @return The sum of all elements of the row.
  */
-int matrix_sum_row(const matrix *m, int row) {
+int matrix_sum_row(const matrix *m, const int row) {
     int sum = 0;
     for (int i = 0; i < m->cols; i++) {
         sum += m->data[row * m->cols + i];
@@ -219,7 +219,7 @@ int matrix_sum_row(const matrix *m, int row) {
  * @param m The matrix.
  * @return The sum of the main diagonal.
  */
-int matrix_sum_diagonal(matrix *m) {
+int matrix_sum_diagonal(const matrix *m) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
         sum += m->data[i * m->cols + i];
@@ -232,7 +232,7 @@ int matrix_sum_diagonal(matrix *m) {
  * @param m The matrix.
  * @return The sum of the anti-diagonal.
  */
-int matrix_sum_antidiagonal(matrix *m) {
+int matrix_sum_antidiagonal(const matrix *m) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
         sum += m->data[(m->rows - i - 1) * m->cols + i];
@@ -246,7 +246,7 @@ int matrix_sum_antidiagonal(matrix *m) {
  * @param row The row index
  * @return The average of the row
  */
-int matrix_avg_row(matrix *m, int row) {
+int matrix_avg_row(const matrix *m, const int row) {
     return matrix_sum_row(m, row) / m->cols;
 }
 
@@ -256,7 +256,7 @@ int matrix_avg_row(matrix *m, int row) {
  * @param col The column index
  * @return The average of the column
  */
-int matrix_avg_col(const matrix *m, int col) {
+int matrix_avg_col(const matrix *m, const int col) {
     return matrix_sum_col(m, col) / m->rows;
 }
 
@@ -264,7 +264,7 @@ int matrix_avg_col(const matrix *m, int col) {
  * Deallocates the memory used by the matrix.
  * @param m The matrix to be deallocated.
  */
-void matrix_free(matrix *m) {
+void matrix_free(const matrix *m) {
     free(m->data);
     free(m);
 }
