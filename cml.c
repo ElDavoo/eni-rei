@@ -243,6 +243,22 @@ int matrix_product_antidiagonal(matrix *m) {
     return product;
 }
 
+int matrix_sum_diagonal(matrix *m) {
+    int sum = 0;
+    for (int i = 0; i < m->rows; i++) {
+        sum += m->data[i * m->cols + i];
+    }
+    return sum;
+}
+
+int matrix_sum_antidiagonal(matrix *m) {
+    int sum = 0;
+    for (int i = 0; i < m->rows; i++) {
+        sum += m->data[(m->rows - i - 1) * m->cols + i];
+    }
+    return sum;
+}
+
 int matrix_avg_row(matrix *m, int row) {
     return matrix_row_sum(m, row) / m->cols;
 }

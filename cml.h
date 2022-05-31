@@ -37,6 +37,10 @@ int matrix_col_sum(const matrix *m, int col);
 int matrix_avg_row(matrix *m, int row);
 int matrix_avg_col(matrix *m, int col);
 int matrix_product_diagonal(matrix *m);
+int matrix_product_col(const matrix *m, int col);
+int matrix_sum_diagonal(matrix *m);
+int matrix_sum_antidiagonal(matrix *m);
+
 int matrix_max_row(matrix *m, int row);
 int matrix_max_col(matrix *m, int col);
 int matrix_min_row(matrix *m, int row);

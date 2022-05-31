@@ -67,6 +67,15 @@ void ex7(const matrix *m) {
 
 }
 
+// List the k column of this matrix
+void ex9(const matrix *m) {
+    printf("\nExercise 9\n");
+    int k = rand() % (m->cols);
+    printf("k: %d\n", k);
+    matrix_print_col(m, k);
+    printf("\n");
+}
+
 int main() {
     srand(time(NULL));
 
@@ -76,6 +85,8 @@ int main() {
 
     ex6(m);
     ex7(m);
+    ex9(m);
+
 
     matrix_free(m);
 
