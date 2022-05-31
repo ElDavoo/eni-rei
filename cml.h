@@ -34,7 +34,6 @@ matrix *matrix_copy(const matrix *m);
 
 void matrix_print_row(const matrix *m, int row);
 void matrix_print_col(const matrix *m, int col);
-void matrix_print_col(const matrix *m, int col);
 void matrix_print(matrix *m);
 
 cell matrix_max_row_pos(const matrix *m, int row);
