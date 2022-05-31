@@ -138,6 +138,7 @@ int main() {
     matrix_fill_random(m);
     matrix_print(m);
 
+    // These exercises can be done with the same matrix
     ex6(m);
     ex7(m);
     ex9(m);
@@ -145,6 +146,8 @@ int main() {
 
     matrix_free(m);
 
+
+    // Exercise 8 requires a square matrix
     m = matrix_new(rand() % 20 + 10,2);
     matrix_fill_random(m);
     matrix_print(m);
@@ -153,11 +156,14 @@ int main() {
 
     matrix_free(m);
 
+    // Exercise 10 requires an elongated matrix
     int randn = rand() % 8 + 1;
     m = matrix_new(randn, randn);
     matrix_fill_random(m);
     matrix_print(m);
+
     ex10(m);
+
     matrix_free(m);
 
 }

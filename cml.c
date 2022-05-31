@@ -7,15 +7,28 @@
 
 // Common Matrix Library
 
+/**
+ * Creates a new matrix with the given dimensions.
+ * @param rows Number of rows.
+ * @param cols Number of columns.
+ * @return  A new matrix.
+ */
 matrix *matrix_new(int rows, int cols) {
+    // Allocate a new matrix struct
     matrix *m = malloc(sizeof(matrix));
+    // Set the dimensions
     m->rows = rows;
     m->cols = cols;
+    // Allocate and fill the data array
     m->data = malloc(sizeof(double) * rows * cols);
     matrix_fill(m, 0);
     return m;
 }
 
+/**
+ * Creates a new matrix asking the dimensions from the user.
+ * @return A new matrix.
+ */
 matrix *matrix_new_ask_dimensions() {
     printf("Enter the number of rows: ");
     int rows = read_int();
@@ -24,6 +37,10 @@ matrix *matrix_new_ask_dimensions() {
     return matrix_new(rows, cols);
 }
 
+/**
+ * Asks the user for the data of the matrix.
+ * @param m The matrix.
+ */
 void matrix_ask_data(matrix *m) {
     for (int i = 0; i < m->rows; i++) {
         for (int j = 0; j < m->cols; j++) {
@@ -33,18 +50,32 @@ void matrix_ask_data(matrix *m) {
     }
 }
 
+/**
+ * Fills the matrix with the given value.
+ * @param m The matrix.
+ * @param value The value to fill the matrix with.
+ */
 void matrix_fill(matrix *m, int value) {
     for (int i = 0; i < m->rows * m->cols; i++) {
         m->data[i] = value;
     }
 }
 
+/**
+ * Fills the matrix with random values.
+ * @param m The matrix.
+ */
 void matrix_fill_random(matrix *m) {
     for (int i = 0; i < m->rows * m->cols; i++) {
         m->data[i] = rand() % 100;
     }
 }
 
+/**
+ * Copies the given matrix.
+ * @param m The matrix to copy.
+ * @return A copy of the matrix.
+ */
 matrix *matrix_copy(const matrix *m) {
     matrix *n = matrix_new(m->rows, m->cols);
     for (int i = 0; i < m->rows * m->cols; i++) {
@@ -53,6 +84,11 @@ matrix *matrix_copy(const matrix *m) {
     return n;
 }
 
+/**
+ * Prints a row of the matrix.
+ * @param m The matrix.
+ * @param row The index of the row to print.
+ */
 void matrix_print_row(const matrix *m, int row) {
     for (int i = 0; i < m->cols; i++) {
         printf("%d\t", m->data[row * m->cols + i]);
@@ -60,19 +96,34 @@ void matrix_print_row(const matrix *m, int row) {
     printf("\n");
 }
 
+/**
+ * Prints a column of the matrix.
+ * @param m The matrix.
+ * @param col The index of the column to print.
+ */
 void matrix_print_col(const matrix *m, int col) {
     for (int i = 0; i < m->rows; i++) {
-        printf("%d\t", m->data[i * m->cols + col]);
+        printf("%d\n", m->data[i * m->cols + col]);
     }
     printf("\n");
 }
 
+/**
+ * Prints the matrix.
+ * @param m The matrix.
+ */
 void matrix_print(matrix *m) {
     for (int i = 0; i < m->rows; i++) {
         matrix_print_row(m, i);
     }
 }
 
+/**
+ * Gets the index and the value of the maximum value of a row.
+ * @param m The matrix.
+ * @param row The index of the row.
+ * @return The index and the value of the maximum of the row.
+ */
 cell matrix_max_row_pos(const matrix *m, int row) {
     cell max = {m->data[row * m->cols], row * m->cols};
     for (int i = 0; i < m->cols; i++) {
@@ -84,6 +135,12 @@ cell matrix_max_row_pos(const matrix *m, int row) {
     return max;
 }
 
+/**
+ * Gets the index and the value of the minimum value of a row.
+ * @param m The matrix.
+ * @param row The index of the row.
+ * @return The index and the value of the minimum of the row.
+ */
 cell matrix_min_row_pos(const matrix *m, int row) {
     cell min = {m->data[row * m->cols], row * m->cols};
     for (int i = 0; i < m->cols; i++) {
@@ -95,6 +152,12 @@ cell matrix_min_row_pos(const matrix *m, int row) {
     return min;
 }
 
+/**
+ * Gets the index and the value of the maximum value of a column.
+ * @param m The matrix.
+ * @param col The index of the column.
+ * @return The index and the value of the maximum of the column.
+ */
 cell matrix_max_col_pos(const matrix *m, int col) {
     cell max = {m->data[col], col};
     for (int i = 0; i < m->rows; i++) {
@@ -106,6 +169,12 @@ cell matrix_max_col_pos(const matrix *m, int col) {
     return max;
 }
 
+/**
+ * Gets the index and the value of the minimum value of a column.
+ * @param m The matrix.
+ * @param col The index of the column.
+ * @return The index and the value of the minimum of the column.
+ */
 cell matrix_min_col_pos(const matrix *m, int col) {
     cell min = {m->data[col], col};
     for (int i = 0; i < m->rows; i++) {
@@ -117,6 +186,12 @@ cell matrix_min_col_pos(const matrix *m, int col) {
     return min;
 }
 
+/**
+ * Returns the sum of all elements of a column.
+ * @param m The matrix.
+ * @param col The column index.
+ * @return The sum of all elements of the column.
+ */
 int matrix_sum_col(const matrix *m, int col) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
@@ -125,6 +200,12 @@ int matrix_sum_col(const matrix *m, int col) {
     return sum;
 }
 
+/**
+ * Returns the sum of all elements of a row.
+ * @param m The matrix.
+ * @param row The row index.
+ * @return The sum of all elements of the row.
+ */
 int matrix_sum_row(const matrix *m, int row) {
     int sum = 0;
     for (int i = 0; i < m->cols; i++) {
@@ -133,6 +214,11 @@ int matrix_sum_row(const matrix *m, int row) {
     return sum;
 }
 
+/**
+ * Returns the sum of the main diagonal of the matrix.
+ * @param m The matrix.
+ * @return The sum of the main diagonal.
+ */
 int matrix_sum_diagonal(matrix *m) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
@@ -141,6 +227,11 @@ int matrix_sum_diagonal(matrix *m) {
     return sum;
 }
 
+/**
+ * Returns the sum of the anti-diagonal of the matrix.
+ * @param m The matrix.
+ * @return The sum of the anti-diagonal.
+ */
 int matrix_sum_antidiagonal(matrix *m) {
     int sum = 0;
     for (int i = 0; i < m->rows; i++) {
@@ -149,15 +240,30 @@ int matrix_sum_antidiagonal(matrix *m) {
     return sum;
 }
 
-
+/**
+ * Returns the average of a row of a matrix
+ * @param m The matrix
+ * @param row The row index
+ * @return The average of the row
+ */
 int matrix_avg_row(matrix *m, int row) {
     return matrix_sum_row(m, row) / m->cols;
 }
 
+/**
+ * Returns the average of a column of a matrix
+ * @param m The matrix
+ * @param col The column index
+ * @return The average of the column
+ */
 int matrix_avg_col(const matrix *m, int col) {
     return matrix_sum_col(m, col) / m->rows;
 }
 
+/**
+ * Deallocates the memory used by the matrix.
+ * @param m The matrix to be deallocated.
+ */
 void matrix_free(matrix *m) {
     free(m->data);
     free(m);
